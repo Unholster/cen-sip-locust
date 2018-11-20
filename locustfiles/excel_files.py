@@ -1,4 +1,6 @@
 import json
+from os import path
+
 from locust import HttpLocust, TaskSet, task
 
 
@@ -11,7 +13,7 @@ class RequestExcelFiles(TaskSet):
     media_type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 
     def on_start(self):
-        with open('endpoint_urls', 'r') as endpoints_file:
+        with open(path.join(path.dirname(__file__), 'endpoint_urls'), 'r') as endpoints_file:
             self.endpoints = json.load(endpoints_file)
 
     @task
